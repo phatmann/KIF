@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "EABD46791857A0C700A5F081"
-               BuildableName = "libKIF copy.a"
+               BuildableName = "libKIF-XCTest.a"
                BlueprintName = "KIF-XCTest"
                ReferencedContainer = "container:KIF.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "EABD46AD1857A0F300A5F081"
-               BuildableName = "KIF Tests copy.octest"
+               BuildableName = "KIF Tests - XCTest.xctest"
                BlueprintName = "KIF Tests - XCTest"
                ReferencedContainer = "container:KIF.xcodeproj">
             </BuildableReference>

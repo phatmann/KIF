@@ -102,7 +102,11 @@
 
 - (void)writeScreenshotForException:(NSException *)exception;
 {
-    [[UIApplication sharedApplication] writeScreenshotForLine:5 inFile:@"test" description:nil error:NULL];
+#ifdef XCT_EXPORT
+    [[UIApplication sharedApplication] writeScreenshotForLine:[exception.userInfo[@"SenTestLineNumberKey"] unsignedIntegerValue] inFile:exception.userInfo[@"SenTestFilenameKey"] description:nil error:NULL];
+#else
+    [[UIApplication sharedApplication] writeScreenshotForLine:exception.lineNumber.unsignedIntegerValue inFile:exception.filename description:nil error:NULL];
+#endif
 }
 
 @end
