@@ -72,7 +72,7 @@
 		EABD46CF1857A15400A5F081 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EABD46AB1857A0EB00A5F081 /* XCTest.framework */; };
 		EABD46D21857A24E00A5F081 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EABD46AB1857A0EB00A5F081 /* XCTest.framework */; };
 		EABD46D51857C54500A5F081 /* KIF-XCTestPrefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = EABD46D31857BE8600A5F081 /* KIF-XCTestPrefix.pch */; };
-		EABD46D61858C8ED00A5F081 /* libKIF copy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EABD46AA1857A0C700A5F081 /* libKIF copy.a */; };
+		EABD46D61858C8ED00A5F081 /* libKIF-XCTest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EABD46AA1857A0C700A5F081 /* libKIF-XCTest.a */; };
 		EB02523E17AA109400A7D13A /* CompositionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EB02523D17AA109400A7D13A /* CompositionTests.m */; };
 		EB09001017E3696A00AA15B1 /* SearchFieldTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EB09000F17E3696A00AA15B1 /* SearchFieldTests.m */; };
 		EB22B5B017AF52640090B848 /* CascadingFailureTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EB22B5AF17AF52640090B848 /* CascadingFailureTests.m */; };
@@ -192,7 +192,7 @@
 		EABD46731857A05E00A5F081 /* KIFAssertionMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KIFAssertionMap.h; sourceTree = "<group>"; };
 		EABD46751857A07600A5F081 /* TestCase-KIFAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestCase-KIFAdditions.h"; sourceTree = "<group>"; };
 		EABD46761857A07600A5F081 /* TestCase-KIFAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TestCase-KIFAdditions.m"; sourceTree = "<group>"; };
-		EABD46AA1857A0C700A5F081 /* libKIF copy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libKIF copy.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EABD46AA1857A0C700A5F081 /* libKIF-XCTest.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libKIF-XCTest.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EABD46AB1857A0EB00A5F081 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		EABD46CD1857A0F300A5F081 /* KIF Tests - XCTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "KIF Tests - XCTest.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EABD46D01857A18900A5F081 /* KIF XCTests-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KIF XCTests-Prefix.pch"; sourceTree = "<group>"; };
@@ -264,7 +264,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EABD46D61858C8ED00A5F081 /* libKIF copy.a in Frameworks */,
+				EABD46D61858C8ED00A5F081 /* libKIF-XCTest.a in Frameworks */,
 				EABD46CF1857A15400A5F081 /* XCTest.framework in Frameworks */,
 				EABD46C31857A0F300A5F081 /* UIKit.framework in Frameworks */,
 				EABD46C41857A0F300A5F081 /* Foundation.framework in Frameworks */,
@@ -324,7 +324,7 @@
 				EB72047C1680DDAD00278DA2 /* libKIF.a */,
 				EB60ECC1177F8C83005A041A /* Test Host.app */,
 				EB60ECEB177F8DB3005A041A /* KIF Tests.octest */,
-				EABD46AA1857A0C700A5F081 /* libKIF copy.a */,
+				EABD46AA1857A0C700A5F081 /* libKIF-XCTest.a */,
 				EABD46CD1857A0F300A5F081 /* KIF Tests - XCTest.xctest */,
 			);
 			name = Products;
@@ -577,7 +577,7 @@
 			);
 			name = "KIF-XCTest";
 			productName = KIFTestCase;
-			productReference = EABD46AA1857A0C700A5F081 /* libKIF copy.a */;
+			productReference = EABD46AA1857A0C700A5F081 /* libKIF-XCTest.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		EABD46AD1857A0F300A5F081 /* KIF Tests - XCTest */ = {
