@@ -23,7 +23,9 @@
         return nil;
     }
 
+#ifndef XCT_EXPORT
     [self raiseAfterFailure];
+#endif
     return self;
 }
 
@@ -100,7 +102,7 @@
 
 - (void)writeScreenshotForException:(NSException *)exception;
 {
-    [[UIApplication sharedApplication] writeScreenshotForLine:exception.lineNumber.unsignedIntegerValue inFile:exception.filename description:nil error:NULL];
+    [[UIApplication sharedApplication] writeScreenshotForLine:5 inFile:@"test" description:nil error:NULL];
 }
 
 @end

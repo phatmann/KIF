@@ -7,9 +7,12 @@
 //  See the LICENSE file distributed with this work for the terms under
 //  which Square, Inc. licenses this file to you.
 
+#ifndef XCT_EXPORT
+#import <SenTestingKit/SenTestingKit.h>
+#endif
+
 #import "KIFTestActor.h"
 #import "NSError-KIFAdditions.h"
-#import <SenTestingKit/SenTestingKit.h>
 #import <dlfcn.h>
 #import <objc/runtime.h>
 #import "UIApplication-KIFAdditions.h"
@@ -21,12 +24,14 @@
     @autoreleasepool {
         NSLog(@"KIFTester loaded");
         [KIFTestActor _enableAccessibility];
-        
+
+#ifndef XCT_EXPORT
         if ([[[NSProcessInfo processInfo] environment] objectForKey:@"StartKIFManually"]) {
             [[NSUserDefaults standardUserDefaults] setBool:YES forKey:SenTestToolKey];
             SenSelfTestMain();
         }
-        
+#endif
+
         [UIApplication swizzleRunLoop];
     }
 }
@@ -148,7 +153,16 @@ static NSTimeInterval KIFTestStepDefaultTimeout = 10.0;
 
 - (void)failWithError:(NSError *)error stopTest:(BOOL)stopTest
 {
+#ifdef XCT_EXPORT
+    NSException *exception = [NSException exceptionWithName:@"KIFFailureException"
+                                                     reason:error.localizedDescription
+                                                   userInfo:@{@"SenTestFilenameKey": self.file,
+                                                              @"SenTestLineNumberKey": @(self.line)}];
+
+    [self.delegate failWithException:exception stopTest:stopTest];
+#else
     [self.delegate failWithException:[NSException failureInFile:self.file atLine:(int)self.line withDescription:error.localizedDescription] stopTest:stopTest];
+#endif
 }
 
 - (void)waitForTimeInterval:(NSTimeInterval)timeInterval
@@ -173,8 +187,16 @@ static NSTimeInterval KIFTestStepDefaultTimeout = 10.0;
 - (void)failWithExceptions:(NSArray *)exceptions stopTest:(BOOL)stop
 {
     NSException *firstException = [exceptions objectAtIndex:0];
+
+#ifdef XCT_EXPORT
+    NSException *newException = [NSException exceptionWithName:@"KIFFailureException"
+                                                     reason:[NSString stringWithFormat:@"Failure in child step: %@", firstException.description]
+                                                   userInfo:@{@"SenTestFilenameKey": self.file,
+                                                              @"SenTestLineNumberKey": @(self.line)}];
+#else
     NSException *newException = [NSException failureInFile:self.file atLine:(int)self.line withDescription:@"Failure in child step: %@", firstException.description];
-    
+#endif
+
     [self.delegate failWithExceptions:[exceptions arrayByAddingObject:newException] stopTest:stop];
 }
 

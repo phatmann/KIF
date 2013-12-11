@@ -12,4 +12,4 @@
 #import "KIFSystemTestActor.h"
 #import "KIFUITestActor.h"
 
-#import "SenTestCase-KIFAdditions.h"
+#import "TestCase-KIFAdditions.h"

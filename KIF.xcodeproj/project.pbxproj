@@ -117,6 +117,7 @@
 		C194255715D83DE9004FC314 /* KIFTypist.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KIFTypist.m; sourceTree = "<group>"; };
 		CDFD8E84139728B4008D299F /* NSFileManager-KIFAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSFileManager-KIFAdditions.h"; sourceTree = "<group>"; };
 		CDFD8E85139728B4008D299F /* NSFileManager-KIFAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager-KIFAdditions.m"; sourceTree = "<group>"; };
+		EABD46731857A05E00A5F081 /* KIFAssertionMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KIFAssertionMap.h; sourceTree = "<group>"; };
 		EABD46751857A07600A5F081 /* TestCase-KIFAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestCase-KIFAdditions.h"; sourceTree = "<group>"; };
 		EABD46761857A07600A5F081 /* TestCase-KIFAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TestCase-KIFAdditions.m"; sourceTree = "<group>"; };
 		EB02523D17AA109400A7D13A /* CompositionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompositionTests.m; sourceTree = "<group>"; };
@@ -262,6 +263,7 @@
 				C194255715D83DE9004FC314 /* KIFTypist.m */,
 				EBAE488517A4E5C30005EE19 /* KIFTestStepValidation.h */,
 				EBAE488617A4E5C30005EE19 /* KIFTestStepValidation.m */,
+				EABD46731857A05E00A5F081 /* KIFAssertionMap.h */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -405,6 +407,7 @@
 				EBAE488117A460E50005EE19 /* NSError-KIFAdditions.h in Headers */,
 				EBAE488717A4E5C30005EE19 /* KIFTestStepValidation.h in Headers */,
 				EB7204551680DDAD00278DA2 /* KIF-Prefix.pch in Headers */,
+				EABD46741857A05E00A5F081 /* KIFAssertionMap.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "KIFTestCase.h"
+#import "KIFAssertionMap.h"
 
 #define KIFExpectFailure(stmt) \
 {\
@@ -18,7 +19,7 @@
         @catch (NSException *exception) { }\
     }\
     if (!mockDelegate.failed) {\
-        STFail(@"%s should have failed.", #stmt);\
+        KIFFail(@"%s should have failed.", #stmt);\
     }\
 }
 
@@ -31,9 +32,9 @@
             @catch (NSException *exception) { }\
     }\
     if (!mockDelegate.failed) {\
-        STFail(@"%s should have failed.", #stmt);\
+        KIFFail(@"%s should have failed.", #stmt);\
     }\
-    STAssertEquals((NSUInteger)cnt, mockDelegate.exceptions.count, @"Expected a different number of exceptions.");\
+    KIFAssertEqual((NSUInteger)cnt, mockDelegate.exceptions.count, @"Expected a different number of exceptions.");\
 }
 
 
