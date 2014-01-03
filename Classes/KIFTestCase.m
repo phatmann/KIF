@@ -23,6 +23,7 @@
         return nil;
     }
 
+    _writeScreenshotOnException = YES;
     [self raiseAfterFailure];
     return self;
 }
@@ -81,7 +82,7 @@
 
 - (void)failWithException:(NSException *)exception stopTest:(BOOL)stop
 {
-    if (stop) {
+    if (stop && self.writeScreenshotOnException) {
         [self writeScreenshotForException:exception];
     }
     
@@ -100,7 +101,7 @@
 
 - (void)writeScreenshotForException:(NSException *)exception;
 {
-    [[UIApplication sharedApplication] writeScreenshotForLine:exception.lineNumber.unsignedIntegerValue inFile:exception.filename description:nil error:NULL];
+    [[UIApplication sharedApplication] writeScreenshotForLine:exception.lineNumber.unsignedIntegerValue filename:[exception.filename lastPathComponent] description:nil error:NULL];
 }
 
 @end
