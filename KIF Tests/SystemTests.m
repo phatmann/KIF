@@ -8,7 +8,7 @@
 
 #import <KIF/KIF.h>
 
-#ifdef XCT_EXPORT
+#ifdef KIF_XCTEST
 
 #define KIFAssertEqual XCTAssertEqual
 #define KIFAssertEqualObjects XCTAssertEqualObjects

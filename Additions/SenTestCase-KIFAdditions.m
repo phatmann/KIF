@@ -1,32 +1,24 @@
 //
-//  TestCase-KIFAdditions.m
+//  SenTestCase-KIFAdditions.m
 //  KIF
 //
-//  Created by Tony DiPasquale on 12/9/13.
+//  Created by Brian Nickel on 8/23/13.
 //
 //
 
-#import "TestCase-KIFAdditions.h"
+#import "SenTestCase-KIFAdditions.h"
 #import "LoadableCategory.h"
 
-MAKE_CATEGORIES_LOADABLE(TestCase_KIFAdditions)
+MAKE_CATEGORIES_LOADABLE(SenTestCase_KIFAdditions)
 
-#ifdef XCT_EXPORT
-@implementation XCTestCase (KIFAdditions)
-#else
 @implementation SenTestCase (KIFAdditions)
-#endif
 
 - (void)failWithException:(NSException *)exception stopTest:(BOOL)stop
 {
-#ifdef XCT_EXPORT
-    [self recordFailureWithDescription:exception.description inFile:exception.userInfo[@"SenTestFilenameKey"] atLine:[exception.userInfo[@"SenTestLineNumberKey"] unsignedIntegerValue] expected:YES];
-#else
     if (stop) {
         [self raiseAfterFailure];
     }
     [self failWithException:exception];
-#endif
     [self continueAfterFailure];
 }
 
