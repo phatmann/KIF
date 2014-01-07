@@ -101,7 +101,7 @@
 
 - (void)writeScreenshotForException:(NSException *)exception;
 {
-    [[UIApplication sharedApplication] writeScreenshotForLine:exception.lineNumber.unsignedIntegerValue filename:[exception.filename lastPathComponent] description:nil error:NULL];
+    [[UIApplication sharedApplication] writeScreenshotForLine:exception.lineNumber.unsignedIntegerValue inFile:[exception.filename lastPathComponent] description:nil error:NULL];
 }
 
 @end
