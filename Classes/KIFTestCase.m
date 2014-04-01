@@ -38,6 +38,33 @@
 - (void)beforeAll  { }
 - (void)afterAll   { }
 
+#ifdef KIF_XCTEST
+- (void)setUp
+{
+    [super setUp];
+    [self beforeEach];
+}
+
+- (void)tearDown
+{
+    [super tearDown];
+    [self afterEach];
+}
+
++ (void)setUp
+{
+    [super setUp];
+    [[self new] beforeAll];
+}
+
++ (void)tearDown
+{
+    [super tearDown];
+    [[self new] afterAll];
+}
+
+#else
+
 - (void)setUp;
 {
     [super setUp];
@@ -84,6 +111,7 @@
     SEL selector = self.invocation.selector;
     return selector != @selector(beforeAll) && selector != @selector(afterAll);
 }
+#endif
 
 - (void)failWithException:(NSException *)exception stopTest:(BOOL)stop
 {
