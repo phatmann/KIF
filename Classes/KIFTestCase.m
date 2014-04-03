@@ -39,27 +39,23 @@
 - (void)afterAll   { }
 
 #ifdef KIF_XCTEST
-- (void)setUp
+- (void)setUp;
 {
-    [super setUp];
     [self beforeEach];
 }
 
-- (void)tearDown
+- (void)tearDown;
 {
-    [super tearDown];
     [self afterEach];
 }
 
 + (void)setUp
 {
-    [super setUp];
     [[self new] beforeAll];
 }
 
 + (void)tearDown
-{
-    [super tearDown];
+{   
     [[self new] afterAll];
 }
 
@@ -68,7 +64,7 @@
 - (void)setUp;
 {
     [super setUp];
-    
+
     if ([self isNotBeforeOrAfter]) {
         [self beforeEach];
     }
@@ -79,7 +75,7 @@
     if ([self isNotBeforeOrAfter]) {
         [self afterEach];
     }
-    
+
     [super tearDown];
 }
 
@@ -135,9 +131,9 @@
 - (void)writeScreenshotForException:(NSException *)exception;
 {
 #ifdef KIF_XCTEST
-    [[UIApplication sharedApplication] writeScreenshotForLine:[exception.userInfo[@"SenTestLineNumberKey"] unsignedIntegerValue] inFile:[exception.userInfo[@"SenTestFilenameKey"] lastPathComponent] description:nil error:NULL];
+    [[UIApplication sharedApplication] writeScreenshotForLine:[exception.userInfo[@"SenTestLineNumberKey"] unsignedIntegerValue] inFile:exception.userInfo[@"SenTestFilenameKey"] description:nil error:NULL];
 #else
-    [[UIApplication sharedApplication] writeScreenshotForLine:exception.lineNumber.unsignedIntegerValue inFile:[exception.filename lastPathComponent] description:nil error:NULL];
+    [[UIApplication sharedApplication] writeScreenshotForLine:exception.lineNumber.unsignedIntegerValue inFile:exception.filename description:nil error:NULL];
 #endif
 }
 

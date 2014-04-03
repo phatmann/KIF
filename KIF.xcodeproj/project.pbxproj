@@ -10,6 +10,7 @@
 		A88930121685098E00FC7C63 /* KIF.h in Headers */ = {isa = PBXBuildFile; fileRef = A88930111685098E00FC7C63 /* KIF.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EA0F2547182979BE006FF825 /* CollectionViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0F2546182979BE006FF825 /* CollectionViewTests.m */; };
 		EA0F254A1829839E006FF825 /* CollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0F25491829839E006FF825 /* CollectionViewController.m */; };
+		EA47DA2818EDFD6F0034D2F5 /* CollectionViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0F2546182979BE006FF825 /* CollectionViewTests.m */; };
 		EABD467B1857A0C700A5F081 /* CGGeometry-KIFAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB0729513971AB2008AF393 /* CGGeometry-KIFAdditions.m */; };
 		EABD467C1857A0C700A5F081 /* UIAccessibilityElement-KIFAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB0729713971AB2008AF393 /* UIAccessibilityElement-KIFAdditions.m */; };
 		EABD467D1857A0C700A5F081 /* UIApplication-KIFAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB0729913971AB2008AF393 /* UIApplication-KIFAdditions.m */; };
@@ -226,7 +227,7 @@
 		EB60ECD2177F8C84005A041A /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		EB60ECD4177F8C84005A041A /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		EB60ECD6177F8C84005A041A /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		EB60ECEB177F8DB3005A041A /* KIF Tests - SenTest.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "KIF Tests - SenTest.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EB60ECEB177F8DB3005A041A /* KIF Tests - SenTest.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "KIF Tests - SenTest.octest"; path = "KIF Tests-OCUnit.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB60ECF1177F8DB3005A041A /* KIF Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "KIF Tests-Info.plist"; sourceTree = "<group>"; };
 		EB60ECF3177F8DB3005A041A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EB60ECF8177F8DB3005A041A /* KIF Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KIF Tests-Prefix.pch"; sourceTree = "<group>"; };
@@ -574,9 +575,9 @@
 /* End PBXLegacyTarget section */
 
 /* Begin PBXNativeTarget section */
-		EABD46791857A0C700A5F081 /* KIF-XCTest */ = {
+	EABD46791857A0C700A5F081 /* KIF */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = EABD46A61857A0C700A5F081 /* Build configuration list for PBXNativeTarget "KIF-XCTest" */;
+			buildConfigurationList = EABD46A61857A0C700A5F081 /* Build configuration list for PBXNativeTarget "KIF" */;
 			buildPhases = (
 				EABD467A1857A0C700A5F081 /* Sources */,
 				EABD468C1857A0C700A5F081 /* Frameworks */,
@@ -586,14 +587,14 @@
 			);
 			dependencies = (
 			);
-			name = "KIF-XCTest";
+			name = KIF;
 			productName = KIFTestCase;
 			productReference = EABD46AA1857A0C700A5F081 /* libKIF-XCTest.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		EABD46AD1857A0F300A5F081 /* KIF Tests - XCTest */ = {
+		EABD46AD1857A0F300A5F081 /* KIF Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = EABD46C91857A0F300A5F081 /* Build configuration list for PBXNativeTarget "KIF Tests - XCTest" */;
+			buildConfigurationList = EABD46C91857A0F300A5F081 /* Build configuration list for PBXNativeTarget "KIF Tests" */;
 			buildPhases = (
 				EABD46B01857A0F300A5F081 /* Sources */,
 				EABD46C01857A0F300A5F081 /* Frameworks */,
@@ -605,7 +606,7 @@
 			dependencies = (
 				EABD46AE1857A0F300A5F081 /* PBXTargetDependency */,
 			);
-			name = "KIF Tests - XCTest";
+			name = "KIF Tests";
 			productName = "KIF Tests";
 			productReference = EABD46CD1857A0F300A5F081 /* KIF Tests - XCTest.xctest */;
 			productType = "com.apple.product-type.bundle";
@@ -627,9 +628,9 @@
 			productReference = EB60ECC1177F8C83005A041A /* Test Host.app */;
 			productType = "com.apple.product-type.application";
 		};
-		EB60ECEA177F8DB3005A041A /* KIF Tests - SenTest */ = {
+		EB60ECEA177F8DB3005A041A /* KIF Tests-OCUnit */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = EB60ECF9177F8DB3005A041A /* Build configuration list for PBXNativeTarget "KIF Tests - SenTest" */;
+			buildConfigurationList = EB60ECF9177F8DB3005A041A /* Build configuration list for PBXNativeTarget "KIF Tests-OCUnit" */;
 			buildPhases = (
 				EB60ECE6177F8DB3005A041A /* Sources */,
 				EB60ECE7177F8DB3005A041A /* Frameworks */,
@@ -641,14 +642,14 @@
 			dependencies = (
 				EB8C0CED1780CBF5000DBC0B /* PBXTargetDependency */,
 			);
-			name = "KIF Tests - SenTest";
+			name = "KIF Tests-OCUnit";
 			productName = "KIF Tests";
 			productReference = EB60ECEB177F8DB3005A041A /* KIF Tests - SenTest.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
-		EB72043E1680DDAD00278DA2 /* KIF */ = {
+		EB72043E1680DDAD00278DA2 /* KIF-OCUnit */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = EB7204791680DDAD00278DA2 /* Build configuration list for PBXNativeTarget "KIF" */;
+			buildConfigurationList = EB7204791680DDAD00278DA2 /* Build configuration list for PBXNativeTarget "KIF-OCUnit" */;
 			buildPhases = (
 				EB72043F1680DDAD00278DA2 /* Sources */,
 				EB7204501680DDAD00278DA2 /* Frameworks */,
@@ -658,7 +659,7 @@
 			);
 			dependencies = (
 			);
-			name = KIF;
+			name = "KIF-OCUnit";
 			productName = KIFTestCase;
 			productReference = EB72047C1680DDAD00278DA2 /* libKIF.a */;
 			productType = "com.apple.product-type.library.static";
@@ -669,6 +670,7 @@
 		AAB0725F139719AC008AF393 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastTestingUpgradeCheck = 0510;
 				LastUpgradeCheck = 0510;
 			};
 			buildConfigurationList = AAB07262139719AC008AF393 /* Build configuration list for PBXProject "KIF" */;
@@ -683,12 +685,12 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				EB72043E1680DDAD00278DA2 /* KIF */,
-				EABD46791857A0C700A5F081 /* KIF-XCTest */,
+				EABD46791857A0C700A5F081 /* KIF */,
+				EB72043E1680DDAD00278DA2 /* KIF-OCUnit */,
 				A88930091685088F00FC7C63 /* KIF Documentation */,
 				EB60ECC0177F8C83005A041A /* Test Host */,
-				EB60ECEA177F8DB3005A041A /* KIF Tests - SenTest */,
-				EABD46AD1857A0F300A5F081 /* KIF Tests - XCTest */,
+				EABD46AD1857A0F300A5F081 /* KIF Tests */,
+				EB60ECEA177F8DB3005A041A /* KIF Tests-OCUnit */,
 			);
 		};
 /* End PBXProject section */
@@ -793,6 +795,7 @@
 				EABD46B81857A0F300A5F081 /* TappingTests.m in Sources */,
 				EABD46B91857A0F300A5F081 /* TypingTests.m in Sources */,
 				EABD46BA1857A0F300A5F081 /* WaitForAbscenceTests.m in Sources */,
+				EA47DA2818EDFD6F0034D2F5 /* CollectionViewTests.m in Sources */,
 				EABD46BB1857A0F300A5F081 /* WaitForTappableViewTests.m in Sources */,
 				EABD46BC1857A0F300A5F081 /* WaitForViewTests.m in Sources */,
 				EABD46BD1857A0F300A5F081 /* LandscapeTests.m in Sources */,
@@ -1447,7 +1450,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		EABD46A61857A0C700A5F081 /* Build configuration list for PBXNativeTarget "KIF-XCTest" */ = {
+		EABD46A61857A0C700A5F081 /* Build configuration list for PBXNativeTarget "KIF" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				EABD46A71857A0C700A5F081 /* Debug */,
@@ -1457,7 +1460,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		EABD46C91857A0F300A5F081 /* Build configuration list for PBXNativeTarget "KIF Tests - XCTest" */ = {
+		EABD46C91857A0F300A5F081 /* Build configuration list for PBXNativeTarget "KIF Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				EABD46CA1857A0F300A5F081 /* Debug */,
@@ -1477,7 +1480,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		EB60ECF9177F8DB3005A041A /* Build configuration list for PBXNativeTarget "KIF Tests - SenTest" */ = {
+		EB60ECF9177F8DB3005A041A /* Build configuration list for PBXNativeTarget "KIF Tests-OCUnit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				EB60ECFA177F8DB3005A041A /* Debug */,
@@ -1487,7 +1490,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		EB7204791680DDAD00278DA2 /* Build configuration list for PBXNativeTarget "KIF" */ = {
+		EB7204791680DDAD00278DA2 /* Build configuration list for PBXNativeTarget "KIF-OCUnit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				EB72047A1680DDAD00278DA2 /* Debug */,
