@@ -11,6 +11,5 @@
 @interface KIFTypist : NSObject
 
 + (BOOL)enterCharacter:(NSString *)characterString;
-+ (void)prepareKeyboardForTyping;
 
 @end
