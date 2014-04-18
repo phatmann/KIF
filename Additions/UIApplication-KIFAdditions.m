@@ -105,7 +105,7 @@ static const void *KIFRunLoopModesKey = &KIFRunLoopModesKey;
     if (![windows containsObject:keyWindow]) {
         [windows addObject:keyWindow];
     }
-    return [windows autorelease];
+    return windows;
 }
 
 #pragma mark - Screenshoting
@@ -181,7 +181,7 @@ static const void *KIFRunLoopModesKey = &KIFRunLoopModesKey;
 
 - (CFStringRef)currentRunLoopMode;
 {
-    return (CFStringRef)[self KIF_runLoopModes].lastObject;
+    return (__bridge CFStringRef)[self KIF_runLoopModes].lastObject;
 }
 
 - (void)KIF_pushRunLoopMode:(NSString *)mode;

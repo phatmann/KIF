@@ -64,12 +64,6 @@ typedef struct __GSEvent * GSEventRef;
 
 @end
 
-@interface UIView (KIFAdditionsPrivate)
-
-- (UIEvent *)_eventWithTouch:(UITouch *)touch;
-
-@end
-
 
 @implementation UIView (KIFAdditions)
 
@@ -160,7 +154,7 @@ typedef struct __GSEvent * GSEventRef;
     NSMutableArray *elementStack = [NSMutableArray arrayWithObject:self];
     
     while (elementStack.count) {
-        UIAccessibilityElement *element = [[[elementStack lastObject] retain] autorelease];
+        UIAccessibilityElement *element = [elementStack lastObject];
         [elementStack removeLastObject];
 
         BOOL elementMatches = matchBlock(element);
@@ -189,6 +183,38 @@ typedef struct __GSEvent * GSEventRef;
             
             if (subelement) {
                 [elementStack addObject:subelement];
+            }
+        }
+    }
+    
+    if (!matchingButOccludedElement && [self isKindOfClass:[UICollectionView class]]) {
+        UICollectionView *collectionView = (UICollectionView *)self;
+        
+        NSArray *indexPathsForVisibleItems = [collectionView indexPathsForVisibleItems];
+        
+        for (NSUInteger section = 0, numberOfSections = [collectionView numberOfSections]; section < numberOfSections; section++) {
+            for (NSUInteger item = 0, numberOfItems = [collectionView numberOfItemsInSection:section]; item < numberOfItems; item++) {
+                // Skip visible items because they are already handled
+                NSIndexPath *indexPath = [NSIndexPath indexPathForItem:item inSection:section];
+                if ([indexPathsForVisibleItems containsObject:indexPath]) {
+                    continue;
+                }
+                
+                // Get the cell directly from the dataSource because UICollectionView will only vend visible cells
+                UICollectionViewCell *cell = [collectionView.dataSource collectionView:collectionView cellForItemAtIndexPath:indexPath];
+                
+                // Skip this cell if it isn't the one we're looking for
+                UIAccessibilityElement *element = [cell accessibilityElementMatchingBlock:matchBlock];
+                if (!element) {
+                    continue;
+                }
+                
+                // Scroll to the cell and wait for the animation to complete
+                [collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionNone animated:YES];
+                CFRunLoopRunInMode(UIApplicationCurrentRunMode, 0.5, false);
+                
+                // Now try finding the element again
+                return [self accessibilityElementMatchingBlock:matchBlock];
             }
         }
     }
@@ -275,7 +301,7 @@ typedef struct __GSEvent * GSEventRef;
 
 - (void)flash;
 {
-	UIColor *originalBackgroundColor = [self.backgroundColor retain];
+	UIColor *originalBackgroundColor = self.backgroundColor;
     for (NSUInteger i = 0; i < 5; i++) {
         self.backgroundColor = [UIColor yellowColor];
         CFRunLoopRunInMode(kCFRunLoopDefaultMode, .05, false);
@@ -283,7 +309,6 @@ typedef struct __GSEvent * GSEventRef;
         CFRunLoopRunInMode(kCFRunLoopDefaultMode, .05, false);
     }
     self.backgroundColor = originalBackgroundColor;
-    [originalBackgroundColor release];
 }
 
 - (void)tap;
@@ -303,9 +328,8 @@ typedef struct __GSEvent * GSEventRef;
     if ([NSStringFromClass([self class]) isEqual:@"UIWebBrowserView"]) {
         webBrowserView = self;
     } else if ([self isKindOfClass:[UIWebView class]]) {
-        id webViewInternal = nil;
-        object_getInstanceVariable(self, "_internal", (void **)&webViewInternal);
-        object_getInstanceVariable(webViewInternal, "browserView", (void **)&webBrowserView);
+        id webViewInternal = [self valueForKey:@"_internal"];
+        webBrowserView = [webViewInternal valueForKey:@"browserView"];
     }
     
     if (webBrowserView) {
@@ -317,7 +341,7 @@ typedef struct __GSEvent * GSEventRef;
     UITouch *touch = [[UITouch alloc] initAtPoint:point inView:self];
     [touch setPhaseAndUpdateTimestamp:UITouchPhaseBegan];
     
-    UIEvent *event = [self _eventWithTouch:touch];
+    UIEvent *event = [self eventWithTouch:touch];
 
     [[UIApplication sharedApplication] sendEvent:event];
     
@@ -329,7 +353,6 @@ typedef struct __GSEvent * GSEventRef;
         [self becomeFirstResponder];
     }
 
-    [touch release];
 }
 
 #define DRAG_TOUCH_DELAY 0.01
@@ -339,7 +362,7 @@ typedef struct __GSEvent * GSEventRef;
     UITouch *touch = [[UITouch alloc] initAtPoint:point inView:self];
     [touch setPhaseAndUpdateTimestamp:UITouchPhaseBegan];
     
-    UIEvent *eventDown = [self _eventWithTouch:touch];
+    UIEvent *eventDown = [self eventWithTouch:touch];
     [[UIApplication sharedApplication] sendEvent:eventDown];
     
     CFRunLoopRunInMode(kCFRunLoopDefaultMode, DRAG_TOUCH_DELAY, false);
@@ -348,14 +371,14 @@ typedef struct __GSEvent * GSEventRef;
     {
         [touch setPhaseAndUpdateTimestamp:UITouchPhaseStationary];
         
-        UIEvent *eventStillDown = [self _eventWithTouch:touch];
+        UIEvent *eventStillDown = [self eventWithTouch:touch];
         [[UIApplication sharedApplication] sendEvent:eventStillDown];
         
         CFRunLoopRunInMode(kCFRunLoopDefaultMode, DRAG_TOUCH_DELAY, false);
     }
     
     [touch setPhaseAndUpdateTimestamp:UITouchPhaseEnded];
-    UIEvent *eventUp = [self _eventWithTouch:touch];
+    UIEvent *eventUp = [self eventWithTouch:touch];
     [[UIApplication sharedApplication] sendEvent:eventUp];
     
     // Dispatching the event doesn't actually update the first responder, so fake it
@@ -363,7 +386,6 @@ typedef struct __GSEvent * GSEventRef;
         [self becomeFirstResponder];
     }
     
-    [touch release];
 }
 
 - (void)dragFromPoint:(CGPoint)startPoint toPoint:(CGPoint)endPoint;
@@ -403,7 +425,7 @@ typedef struct __GSEvent * GSEventRef;
     UITouch *touch = [[UITouch alloc] initAtPoint:points[0] inView:self];
     [touch setPhaseAndUpdateTimestamp:UITouchPhaseBegan];
     
-    UIEvent *eventDown = [self _eventWithTouch:touch];
+    UIEvent *eventDown = [self eventWithTouch:touch];
     [[UIApplication sharedApplication] sendEvent:eventDown];
     
     CFRunLoopRunInMode(UIApplicationCurrentRunMode, DRAG_TOUCH_DELAY, false);
@@ -412,7 +434,7 @@ typedef struct __GSEvent * GSEventRef;
         [touch setLocationInWindow:[self.window convertPoint:points[pointIndex] fromView:self]];
         [touch setPhaseAndUpdateTimestamp:UITouchPhaseMoved];
         
-        UIEvent *eventDrag = [self _eventWithTouch:touch];
+        UIEvent *eventDrag = [self eventWithTouch:touch];
         [[UIApplication sharedApplication] sendEvent:eventDrag];
 
         CFRunLoopRunInMode(UIApplicationCurrentRunMode, DRAG_TOUCH_DELAY, false);
@@ -420,7 +442,7 @@ typedef struct __GSEvent * GSEventRef;
     
     [touch setPhaseAndUpdateTimestamp:UITouchPhaseEnded];
     
-    UIEvent *eventUp = [self _eventWithTouch:touch];
+    UIEvent *eventUp = [self eventWithTouch:touch];
     [[UIApplication sharedApplication] sendEvent:eventUp];
     
     // Dispatching the event doesn't actually update the first responder, so fake it
@@ -431,7 +453,6 @@ typedef struct __GSEvent * GSEventRef;
     while (UIApplicationCurrentRunMode != kCFRunLoopDefaultMode) {
         CFRunLoopRunInMode(UIApplicationCurrentRunMode, 0.1, false);
     }
-    [touch release];
 }
 
 - (BOOL)isProbablyTappable
@@ -519,7 +540,7 @@ typedef struct __GSEvent * GSEventRef;
     return CGPointMake(NAN, NAN);
 }
 
-- (UIEvent *)_eventWithTouch:(UITouch *)touch;
+- (UIEvent *)eventWithTouch:(UITouch *)touch;
 {
     UIEvent *event = [[UIApplication sharedApplication] _touchesEvent];
     
@@ -536,13 +557,10 @@ typedef struct __GSEvent * GSEventRef;
     eventProxy->flags = ([touch phase] == UITouchPhaseEnded) ? 0x1010180 : 0x3010180;
     eventProxy->type = 3001;	
 
-    NSSet *allTouches = [event allTouches];
     [event _clearTouches];
-    [allTouches makeObjectsPerformSelector:@selector(autorelease)];
     [event _setGSEvent:(struct __GSEvent *)eventProxy];
     [event _addTouch:touch forDelayedDelivery:NO];
     
-    [eventProxy release];
     return event;
 }
 

@@ -16,6 +16,16 @@
 
 @implementation KIFTestCase
 
++ (id)defaultTestSuite
+{
+    if (self == [KIFTestCase class]) {
+        // Don't run KIFTestCase "tests"
+        return nil;
+    }
+    
+    return [super defaultTestSuite];
+}
+
 - (id)initWithInvocation:(NSInvocation *)anInvocation;
 {
     self = [super initWithInvocation:anInvocation];
@@ -25,7 +35,7 @@
 
     _writeScreenshotOnException = YES;
 
-#ifdef KIF_XCTEST
+#ifndef KIF_SENTEST
     self.continueAfterFailure = NO;
 #else
     [self raiseAfterFailure];
@@ -38,7 +48,8 @@
 - (void)beforeAll  { }
 - (void)afterAll   { }
 
-#ifdef KIF_XCTEST
+#ifndef KIF_SENTEST
+
 - (void)setUp;
 {
     [self beforeEach];
@@ -119,7 +130,7 @@
         NSLog(@"Fatal failure encountered: %@", exception.description);
         NSLog(@"Stopping tests since stopTestsOnFirstBigFailure = YES");
         
-        KIFTestActor *waiter = [[[KIFTestActor alloc] init] autorelease];
+        KIFTestActor *waiter = [[KIFTestActor alloc] init];
         [waiter waitForTimeInterval:[[NSDate distantFuture] timeIntervalSinceNow]];
         
         return;
@@ -130,7 +141,7 @@
 
 - (void)writeScreenshotForException:(NSException *)exception;
 {
-#ifdef KIF_XCTEST
+#ifndef KIF_SENTEST
     [[UIApplication sharedApplication] writeScreenshotForLine:[exception.userInfo[@"SenTestLineNumberKey"] unsignedIntegerValue] inFile:exception.userInfo[@"SenTestFilenameKey"] description:nil error:NULL];
 #else
     [[UIApplication sharedApplication] writeScreenshotForLine:exception.lineNumber.unsignedIntegerValue inFile:exception.filename description:nil error:NULL];
