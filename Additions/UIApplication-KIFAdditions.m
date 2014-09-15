@@ -272,6 +272,7 @@ static inline void Swizzle(Class c, SEL orig, SEL new)
         case UIInterfaceOrientationLandscapeRight:      return @"landscape right";
         case UIInterfaceOrientationPortrait:            return @"portrait";
         case UIInterfaceOrientationPortraitUpsideDown:  return @"upside down";
+        case UIInterfaceOrientationUnknown:             return @"unknown";
     }
 }
 
